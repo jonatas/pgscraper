@@ -8,7 +8,8 @@ This is a pet project I'm working to learn Rust.
 
 A few useful commands:
 
-To init your pgx and provide some instances only to test the extensions:
+To init your [pgx](https://github.com/zombodb/pgx) and provide some instances
+only to test the extension, use it only once:
 
 ```
 cargo pgx init
@@ -56,3 +57,6 @@ Or just internal text:
 └──────────────────┘
 (1 row)
 ```
+
+This project is inspired on the
+[Bad Postgres extension ideas](https://m.twitch.tv/videos/694514963)!
