@@ -1,0 +1,5 @@
+comment = 'pgscraper:  Created by pgx'
+default_version = '1.0'
+module_pathname = '$libdir/pgscraper'
+relocatable = false
+superuser = false
