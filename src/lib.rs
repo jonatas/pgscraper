@@ -20,7 +20,7 @@ fn html_select(expression: &str, url: &str) -> String {
 
 #[pg_extern]
 fn html_select_text(expression: &str, url: &str) -> String {
-    let document = Html::parse_document(&http(&url));
+    let document = Html::parse_document(&http(url));
     let selector = Selector::parse(expression).unwrap();
     let mut results = String::from("");
     for element in document.select(&selector) {
