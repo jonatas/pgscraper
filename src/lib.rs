@@ -12,20 +12,27 @@ fn http(url: &str) -> String {
 }
 
 #[pg_extern]
-fn html_select(expression: &str, url: &str) -> String {
+fn html_select(expression: &str, url: &str) -> impl std::iter::Iterator<Item = String> {
     let document = Html::parse_document(&http(url));
     let selector = Selector::parse(expression).unwrap();
-    document.select(&selector).next().unwrap().html()
+    document
+        .select(&selector)
+        .into_iter()
+        .map(|i| i.html())
+        .into_iter()
+        .collect::<Vec<String>>()
+        .into_iter()
 }
 
 #[pg_extern]
-fn html_select_text(expression: &str, url: &str) -> String {
+fn html_select_text(expression: &str, url: &str) -> impl std::iter::Iterator<Item = String> {
     let document = Html::parse_document(&http(url));
     let selector = Selector::parse(expression).unwrap();
-    let mut results = String::from("");
-    for element in document.select(&selector) {
-        results.push_str(&element.inner_html());
-        results.push_str("\n");
-    }
-    results
+    document
+        .select(&selector)
+        .into_iter()
+        .map(|i| i.text().collect::<String>())
+        .into_iter()
+        .collect::<Vec<String>>()
+        .into_iter()
 }
